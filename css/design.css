@@ -1,0 +1,40 @@
+.landscape {
+  height: 40vh;
+  background-color: #008000;
+}
+
+.gameinterface {
+  height: 60vh;
+  background-color: #fbeebb;
+}
+
+.nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.nav ul li {
+  float: left;
+}
+
+.nav ul li a {
+  display: block;
+  text-align: center;
+  color: #000000;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.nav ul .active a {
+  color: #00ff00;
+}
+
+.nav ul li a:hover {
+  color: #ff0000;
+}
+
+.window {
+  padding-top: 15px;
+}
