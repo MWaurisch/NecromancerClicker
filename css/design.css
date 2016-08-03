@@ -9,17 +9,16 @@
   background-color: #fbeebb;
 }
 
+/* navigation design */
 .nav ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
 }
-
 .nav ul li {
   float: left;
 }
-
 .nav ul li a {
   display: block;
   text-align: center;
@@ -27,59 +26,98 @@
   padding: 14px 16px;
   text-decoration: none;
 }
-
 .nav ul .active a {
   color: #00ff00;
 }
-
 .nav ul li a:hover {
   color: #ff0000;
 }
+/* navigation end */
 
 .window {
-  padding-top: 15px;
+  padding: 14px 16px;
   color: #ff0000;
 }
 
+/* manapool design */
+.manapool {
+  display:block;
+  margin: 15px auto 15px;
+  border-radius: 100%;
+  border: 1px solid #000000;
+  width: 250px;
+  height: 250px;
+}
+.mana {
+  font-size: 16px;
+  color: #030066;
+  text-align: center;
+}
+.manapersecond {
+  font-size: 10px;
+  color: #266585;
+  text-align: center;
+}
+.manaperclick {
+  font-size: 10px;
+  color: #266585;
+  text-align: center;
+}
+/* manapool end */
+
+/* requirements not fullfiled */
+.norequirements {
+  width: 100%;
+  display: block;
+  background-color: #b20000 !important;
+}
+.norequirements .name{
+  color: #660000 !important;
+}
+.norequirements .cost{
+  color: #660000 !important;
+}
+.norequirements .count{
+  color: #660000 !important;
+}
+/* requirements end */
+
+/* requirements fullfiled, mana existend */
 .purchase {
   width: 100%;
   display: block;
   background-color: #b9f44c;
 }
-
-.norequirements {
-  background-color: #373c38 !important;
-}
-
-.norequirements .name{
-  color: #6e7870 !important;
-}
-
-.norequirements .cost{
-  color: #6e7870 !important;
-}
-
-.norequirements .count{
-  color: #6e7870 !important;
-}
-
-.nomana {
-  width: 100%;
-  display: block;
-  color: #8a978c;
-}
-
-.name {
+.purchase .name {
   font-size: 16px;
   color: #6a3d3f;
 }
-
-.cost {
+.purchase .cost {
   font-size: 10px;
   color: #266585;
 }
-
-.count {
+.purchase .count {
   font-size: 30px;
   color: #969ca6;
 }
+/* purchase end */
+
+/* requirements not fullfiled, no mana existend */
+.nomana {
+  width: 100%;
+  display: block;
+  background-color: #d0d5d1;
+}
+.nomana .name {
+  font-size: 16px;
+  color: #8a978c;
+}
+.nomana .cost {
+  font-size: 10px;
+  color: #8a978c;
+}
+.nomana .count {
+  font-size: 30px;
+  color: #8a978c;
+}
+/* nomana end */
