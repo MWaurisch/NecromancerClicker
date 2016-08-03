@@ -29,33 +29,31 @@
 
     <!-- show upgrades for the lich -->
     <div class="col-md-9 row" ng-controller="LichController">
-        <div class="col-md-6 row window" ng-repeat="entry in lich" ng-show="navCtrl.isSelectedTab(1)">
-            <button ng-click="upgrade(entry.id)" ng-disabled="available(entry.id)" data-toggle="popover" data-placement="left" data-trigger="hover" data-content="Tooltip">
-              <p>{{update[entry.id].name}}: {{entry.level}}</p>
-              <p>Mana: {{entry.cost}}</p>
+        <div class="col-md-6 row cont" ng-repeat="entry in lich" ng-show="navCtrl.isSelectedTab(1)">
+            <button ng-click="upgrade(entry.id)" ng-disabled="disabled(entry.id)"
+              ng-class="{purchase: !disabled(entry.id), nomana: disabled(entry.id)}"
+              data-toggle="popover" data-placement="left" data-trigger="hover" data-content="Tooltip">
+              <div class="col-md-11 row">
+                <div class="col-md-12 name">
+                  {{update[entry.id].name}}
+                </div>
+                <div class="col-md-12 cost">
+                  Mana: {{entry.cost}}
+                </div>
+              </div>
+              <div class="col-md-1 count">
+                {{entry.level}}
+              </div>
             </button>
-
-            <!--
-            <div class="col-md-2">
-                <button ng-click="upgrade(entry.id)" ng-disabled="available(entry.id)">+</button>
-            </div>
-            <div class="col-md-9 row">
-                <div class="col-md-12" data-toggle="popover" data-placement="left" data-trigger="hover" data-content="Tooltip">
-                    {{update[entry.id].name}}: {{entry.level}}
-                </div>
-                <div class="col-md-12">
-                    Mana: {{entry.cost}}
-                </div>
-            </div>
-            -->
         </div>
     </div>
 
     <!-- show creatures for summoning by necromancy -->
     <div class="col-md-9 row" ng-controller="necromancyController">
         <div class="col-md-6 row window" ng-repeat="entry in necromancy" ng-show="navCtrl.isSelectedTab(2)">
-            <div class="col-md-2">
-                <button ng-click="summon(entry.id)" ng-disabled="available(entry.id)">+</button>
+        
+            <div class="col-md-2" ng-class="{goodtogo: requirements(entry.id)}">
+                <button ng-click="summon(entry.id)" ng-disabled="disabled(entry.id)">+</button>
             </div>
             <div class="col-md-10 row">
                 <div class="col-md-12" data-toggle="popover" data-placement="left" data-trigger="hover" data-content="<p>Angriff: {{undead[entry.id].attack}}</p>
@@ -67,6 +65,9 @@
                 </div>
                 <div class="col-md-12">
                     Mana: {{undead[entry.id].cost}}
+                    <p>Disabled: {{disabled(entry.id)}}</p>
+                    <p>Requirements: {{requirements(entry.id)}}</p>
+                    <p>Require: {{undead[entry.id].require[1]}}
                 </div>
             </div>
         </div>
@@ -75,11 +76,11 @@
     <div class="col-md-9" ng-controller="buildingController">
       <div class="col-md-6 row window" ng-repeat="entry in stronghold" ng-show="navCtrl.isSelectedTab(3)">
           <div class="col-md-2">
-              <button ng-click="build(entry.id)" ng-disabled="available(entry.id)">+</button>
+              <button ng-click="build(entry.id)" ng-disabled="disabled(entry.id)">+</button>
           </div>
           <div class="col-md-10 row">
               <div class="col-md-12" data-toggle="popover" data-placement="left" data-trigger="hover" data-content="Tooltip">
-                  {{buildings[entry.id].name}}: {{entry.count}}
+                  {{building[entry.id].name}}: {{entry.level}}
               </div>
               <div class="col-md-12">
                   Mana: {{entry.cost}}
@@ -92,10 +93,10 @@
     <div class="col-md-9 row" ng-controller="AttackController">
         <div class="col-md-6 row window" ng-repeat="entry in necromancy" ng-show="navCtrl.isSelectedTab(4)">
           <div class="col-md-3">
-              <button ng-click="increase(entry.id)" ng-disabled="increaseavailable(entry.id)">+</button>
-              <button ng-click="decrease(entry.id)" ng-disabled="decreaseavailable(entry.id)">-</button>
-              <button ng-click="all(entry.id)" ng-disabled="increaseavailable(entry.id)">A</button>
-              <button ng-click="none(entry.id)" ng-disabled="decreaseavailable(entry.id)">N</button>
+              <button ng-click="increase(entry.id)" ng-disabled="increasedisabled(entry.id)">+</button>
+              <button ng-click="decrease(entry.id)" ng-disabled="decreasedisabled(entry.id)">-</button>
+              <button ng-click="all(entry.id)" ng-disabled="increasedisabled(entry.id)">A</button>
+              <button ng-click="none(entry.id)" ng-disabled="decreasedisabled(entry.id)">N</button>
           </div>
           <div class="col-md-7 row">
               <div class="col-md-12" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="<p>Angriff: {{entry.attack}}</p>
@@ -115,7 +116,7 @@
 
 <!-- picture is changing with more power of the Lich -->
 <div class="col-md-3">
-    <p>Bild vom Lich</p>
+    Bild vom Lich
 </div>
 
 </div>

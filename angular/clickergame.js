@@ -17,7 +17,7 @@ clickerGame.controller('ClickerController', function($scope) {
 
     $scope.update = updateProperties;
     $scope.undead = undeadProperties;
-    $scope.buildings = buildingProperties;
+    $scope.building = buildingProperties;
 
     $(function () {
       $('[data-toggle = "tooltip"]').tooltip()
@@ -60,8 +60,8 @@ clickerGame.controller('LichController', function($scope) {
       }
     };
 
-    $scope.available = function(id) {
-      return $scope.player.mana < $scope.lich[id].cost;
+    $scope.disabled = function(id) {
+      return ($scope.player.mana < $scope.lich[id].cost);
     };
 });
 
@@ -74,12 +74,21 @@ clickerGame.controller('necromancyController', function($scope) {
         $scope.necromancy[id].count++;
     };
 
-    $scope.available = function(id) {
-      return $scope.player.mana < $scope.undead[id].cost;
+    $scope.requirements = function(id) {
+      for (var i = 0; i < 8; i++) {
+        if ($scope.stronghold[i].level < $scope.undead[id].require[i]){
+          return false;
+        }
+      }
+      return true;
+    };
+
+    $scope.disabled = function(id) {
+      return ($scope.player.mana < $scope.undead[id].cost) || !($scope.requirements(id));
     };
 });
 
-/////////////// controls aquired buildings ///////////////////
+/////////////// controls aquired building ///////////////////
 
 clickerGame.controller('buildingController', function($scope) {
 
@@ -87,11 +96,21 @@ clickerGame.controller('buildingController', function($scope) {
       $scope.player.mana -= $scope.stronghold[id].cost;
       $scope.stronghold[id].cost += Math.round($scope.stronghold[id].cost * 0.5);
       $scope.stronghold[id].level++;
-    }
+    };
 
-    $scope.available = function(id) {
-      return $scope.player.mana < $scope.stronghold[id].cost;
-    }
+    $scope.requirements = function(id) {
+      for (var i = 0; i < 8; i++) {
+        if ($scope.stronghold[i].level < $scope.building[id].require[i]){
+          return false;
+        }
+      }
+      return true;
+    };
+
+    $scope.disabled = function(id) {
+      return (($scope.player.mana < $scope.stronghold[id].cost) ||
+      ($scope.stronghold[id].level >= $scope.building[id].max) || !($scope.requirements(id)));
+    };
 });
 
 //////////// controls size of attacking army /////////////////
@@ -113,11 +132,11 @@ clickerGame.controller('AttackController', function($scope) {
       $scope.army[id].count = 0;
     };
 
-    $scope.increaseavailable = function(id) {
+    $scope.increasedisabled = function(id) {
       return $scope.army[id].count >= $scope.necromancy[id].count;
     };
 
-    $scope.decreaseavailable = function(id) {
+    $scope.decreasedisabled = function(id) {
       return $scope.army[id].count <= 0;
     };
 });
@@ -270,17 +289,17 @@ var necromancyStatus = [{
 var strongholdStatus = [{
   //Friedhof
   id: 0,
-  level: 0,
+  level: 1,
   cost: 500,
 }, {
   //Schmiede
   id: 1,
-  level: 0,
+  level: 1,
   cost: 500,
 }, {
   //Kaserne
   id: 2,
-  level: 0,
+  level: 1,
   cost: 500,
 }, {
   //Ställe
@@ -387,16 +406,8 @@ const undeadProperties = [{
     lifepoints: 6,
     speed: 4,
     cost: 60,
-    require: {
-      building0: 1,
-      building1: 1,
-      building2: 1,
-      building3: 0,
-      building4: 0,
-      building5: 0,
-      building6: 0,
-      building7: 0,
-    },
+    //Friedhof, Schmiede, Kaserne, Ställe, Burg, Nekroverstärker, Geisterportal, Ritualkreis
+    require: [1,1,1,0,0,0,0,0],
 }, {
     name: "Skelettschütze",
     attack: 6,
@@ -405,16 +416,8 @@ const undeadProperties = [{
     lifepoints: 6,
     speed: 5,
     cost: 100,
-    require: {
-      building0: 2,
-      building1: 2,
-      building2: 2,
-      building3: 0,
-      building4: 0,
-      building5: 0,
-      building6: 0,
-      building7: 0,
-    },
+    //Friedhof, Schmiede, Kaserne, Ställe, Burg, Nekroverstärker, Geisterportal, Ritualkreis
+    require: [2,2,2,0,0,0,0,0],
 }, {
     name: "Zombie",
     attack: 7,
@@ -423,16 +426,8 @@ const undeadProperties = [{
     lifepoints: 20,
     speed: 3,
     cost: 200,
-    require: {
-      building0: 3,
-      building1: 2,
-      building2: 2,
-      building3: 0,
-      building4: 0,
-      building5: 1,
-      building6: 0,
-      building7: 0,
-    },
+    //Friedhof, Schmiede, Kaserne, Ställe, Burg, Nekroverstärker, Geisterportal, Ritualkreis
+    require: [3,2,2,0,0,1,0,0],
 }, {
     name: "Gespenst",
     attack: 10,
@@ -441,16 +436,8 @@ const undeadProperties = [{
     lifepoints: 40,
     speed: 7,
     cost: 360,
-    require: {
-      building0: 3,
-      building1: 2,
-      building2: 2,
-      building3: 0,
-      building4: 0,
-      building5: 2,
-      building6: 1,
-      building7: 0,
-    },
+    //Friedhof, Schmiede, Kaserne, Ställe, Burg, Nekroverstärker, Geisterportal, Ritualkreis
+    require: [3,2,2,0,0,2,1,0],
 }, {
     name: "Todesritter",
     attack: 13,
@@ -459,16 +446,8 @@ const undeadProperties = [{
     lifepoints: 60,
     speed: 9,
     cost: 600,
-    require: {
-      building0: 3,
-      building1: 3,
-      building2: 3,
-      building3: 1,
-      building4: 0,
-      building5: 3,
-      building6: 2,
-      building7: 0,
-    },
+    //Friedhof, Schmiede, Kaserne, Ställe, Burg, Nekroverstärker, Geisterportal, Ritualkreis
+    require: [3,3,3,1,0,3,2,0],
 }, {
     name: "Skelettgigant",
     attack: 17,
@@ -477,16 +456,8 @@ const undeadProperties = [{
     lifepoints: 120,
     speed: 6,
     cost: 1200,
-    require: {
-      building0: 3,
-      building1: 4,
-      building2: 4,
-      building3: 0,
-      building4: 0,
-      building5: 4,
-      building6: 2,
-      building7: 1,
-    },
+    //Friedhof, Schmiede, Kaserne, Ställe, Burg, Nekroverstärker, Geisterportal, Ritualkreis
+    require: [3,4,4,0,0,4,2,1],
 }, {
     name: "Ghoul",
     attack: 24,
@@ -495,123 +466,51 @@ const undeadProperties = [{
     lifepoints: 200,
     speed: 10,
     cost: 2300,
-    require: {
-      building0: 3,
-      building1: 2,
-      building2: 2,
-      building3: 0,
-      building4: 0,
-      building5: 5,
-      building6: 2,
-      building7: 2,
-    },
+    //Friedhof, Schmiede, Kaserne, Ställe, Burg, Nekroverstärker, Geisterportal, Ritualkreis
+    require: [3,2,2,0,0,5,2,2],
 }, ];
 
 const buildingProperties = [{
     name: "Friedhof",
     max: 3,
-    require: {
-      building0: 0,
-      building1: 0,
-      building2: 0,
-      building3: 0,
-      building4: 0,
-      building5: 0,
-      building6: 0,
-      building7: 0,
-    },
+    //Friedhof, Schmiede, Kaserne, Ställe, Burg, Nekroverstärker, Geisterportal, Ritualkreis
+    require: [0,0,0,0,0,0,0,0],
 }, {
     name: "Schmiede",
     max: 4,
-    require: {
-      building0: 1,
-      building1: 0,
-      building2: 0,
-      building3: 0,
-      building4: 0,
-      building5: 0,
-      building6: 0,
-      building7: 0,
-    },
+    //Friedhof, Schmiede, Kaserne, Ställe, Burg, Nekroverstärker, Geisterportal, Ritualkreis
+    require: [1,0,0,0,0,0,0,0],
 }, {
     name: "Kaserne",
     max: 4,
-    require: {
-      building0: 1,
-      building1: 1,
-      building2: 0,
-      building3: 0,
-      building4: 0,
-      building5: 0,
-      building6: 0,
-      building7: 0,
-    },
+    //Friedhof, Schmiede, Kaserne, Ställe, Burg, Nekroverstärker, Geisterportal, Ritualkreis
+    require: [1,1,0,0,0,0,0,0],
 }, {
     name: "Ställe",
     max: 1,
-    require: {
-      building0: 3,
-      building1: 3,
-      building2: 3,
-      building3: 0,
-      building4: 1,
-      building5: 0,
-      building6: 0,
-      building7: 0,
-    },
+    //Friedhof, Schmiede, Kaserne, Ställe, Burg, Nekroverstärker, Geisterportal, Ritualkreis
+    require: [3,3,3,0,1,0,0,0],
 }, {
     name: "Burg",
     max: 3,
-    require: {
-      building0: 2,
-      building1: 2,
-      building2: 2,
-      building3: 0,
-      building4: 0,
-      building5: 0,
-      building6: 0,
-      building7: 0,
-    },
+    //Friedhof, Schmiede, Kaserne, Ställe, Burg, Nekroverstärker, Geisterportal, Ritualkreis
+    require: [2,2,2,0,0,0,0,0],
 }, {
     name: "Nekroverstärker",
     max: 5,
-    require: {
-      building0: 0,
-      building1: 0,
-      building2: 0,
-      building3: 0,
-      building4: 1,
-      building5: 0,
-      building6: 0,
-      building7: 0,
-    },
+    //Friedhof, Schmiede, Kaserne, Ställe, Burg, Nekroverstärker, Geisterportal, Ritualkreis
+    require: [0,0,0,0,1,0,0,0],
 }, {
     name: "Geisterportal",
     max: 2,
-    require: {
-      building0: 0,
-      building1: 0,
-      building2: 0,
-      building3: 0,
-      building4: 2,
-      building5: 2,
-      building6: 0,
-      building7: 0,
-    },
+    //Friedhof, Schmiede, Kaserne, Ställe, Burg, Nekroverstärker, Geisterportal, Ritualkreis
+    require: [0,0,0,0,2,2,0,0],
 }, {
     name: "Ritualkreis",
     max: 2,
-    require: {
-      building0: 0,
-      building1: 0,
-      building2: 0,
-      building3: 0,
-      building4: 3,
-      building5: 4,
-      building6: 0,
-      building7: 0,
-    },
-}]
+    //Friedhof, Schmiede, Kaserne, Ställe, Burg, Nekroverstärker, Geisterportal, Ritualkreis
+    require: [0,0,0,0,3,4,0,0],
+}];
 
 const humanProperties = [{
     name: "Miliz",

@@ -4,7 +4,8 @@
 }
 
 .gameinterface {
-  height: 60vh;
+  display:block;
+  overflow:auto;
   background-color: #fbeebb;
 }
 
@@ -37,4 +38,48 @@
 
 .window {
   padding-top: 15px;
+  color: #ff0000;
+}
+
+.purchase {
+  width: 100%;
+  display: block;
+  background-color: #b9f44c;
+}
+
+.norequirements {
+  background-color: #373c38 !important;
+}
+
+.norequirements .name{
+  color: #6e7870 !important;
+}
+
+.norequirements .cost{
+  color: #6e7870 !important;
+}
+
+.norequirements .count{
+  color: #6e7870 !important;
+}
+
+.nomana {
+  width: 100%;
+  display: block;
+  color: #8a978c;
+}
+
+.name {
+  font-size: 16px;
+  color: #6a3d3f;
+}
+
+.cost {
+  font-size: 10px;
+  color: #266585;
+}
+
+.count {
+  font-size: 30px;
+  color: #969ca6;
 }
