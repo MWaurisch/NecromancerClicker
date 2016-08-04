@@ -34,11 +34,6 @@
 }
 /* navigation end */
 
-.window {
-  padding: 14px 16px;
-  color: #ff0000;
-}
-
 /* manapool design */
 .manapool {
   display:block;
@@ -72,12 +67,15 @@
   background-color: #b20000 !important;
 }
 .norequirements .name{
+  font-size: 16px;
   color: #660000 !important;
 }
 .norequirements .cost{
+  font-size: 10px;
   color: #660000 !important;
 }
 .norequirements .count{
+  font-size: 30px;
   color: #660000 !important;
 }
 /* requirements end */
@@ -121,3 +119,47 @@
   color: #8a978c;
 }
 /* nomana end */
+
+.armybutton {
+  margin-top: 7px;
+}
+
+/* creature isn't available for army */
+.nocreature {
+  width: 100%;
+  display: block;
+  background-color: #d0d5d1;
+}
+.nocreature .name {
+  font-size: 16px;
+  color: #8a978c;
+}
+.nocreature .cost {
+  font-size: 10px;
+  color: #8a978c;
+}
+.nocreature .count {
+  font-size: 30px;
+  color: #8a978c;
+}
+/* nocreature end */
+
+/* creature is available for army */
+.creature {
+  width: 100%;
+  display: block;
+  background-color: #d0d5d1;
+}
+.creature .name {
+  font-size: 16px;
+  color: #6a3d3f;
+}
+.creature .cost {
+  font-size: 10px;
+  color: #266585;
+}
+.creature .count {
+  font-size: 30px;
+  color: #969ca6;
+}
+/* creature end */

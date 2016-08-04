@@ -1,10 +1,6 @@
 
 var clickerGame = angular.module('clickerGame', ['directive', 'propertyService', 'statusService']);
 
-////////////////////////////////////////////////////
-/////////////// Controller /////////////////////////
-////////////////////////////////////////////////////
-
 ///////////// controlls variables //////////////////
 clickerGame.controller('ClickerController', function($scope, propertyFactory, statusFactory) {
 
@@ -65,7 +61,7 @@ clickerGame.controller('LichController', function($scope) {
 });
 
 //////////// controls size of army /////////////////
-clickerGame.controller('necromancyController', function($scope) {
+clickerGame.controller('NecromancyController', function($scope) {
 
     // add a creature and reduce mana by cost //
     $scope.summon = function(id) {
@@ -89,7 +85,7 @@ clickerGame.controller('necromancyController', function($scope) {
 
 /////////////// controls aquired building ///////////////////
 
-clickerGame.controller('buildingController', function($scope) {
+clickerGame.controller('BuildingController', function($scope) {
 
     $scope.build = function(id) {
       $scope.player.mana -= $scope.stronghold[id].cost;
@@ -138,6 +134,10 @@ clickerGame.controller('AttackController', function($scope) {
     $scope.decreasedisabled = function(id) {
       return $scope.army[id].count <= 0;
     };
+
+    $scope.available = function(id) {
+      return $scope.necromancy[id].count != 0;
+    };
 });
 
 //////////// controls navigation /////////////////
@@ -154,7 +154,3 @@ clickerGame.controller('NavController', function() {
         return this.tab === checkTab;
     };
 });
-
-////////////////////////////////////////////////////
-/////////////// Directive //////////////////////////
-////////////////////////////////////////////////////
