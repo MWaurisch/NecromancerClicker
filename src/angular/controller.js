@@ -1,18 +1,20 @@
 
-var clickerGame = angular.module('clickerGame', ['directive', 'propertyService', 'statusService']);
+var clickerGame = angular.module('clickerGame', ['directive', 'propertyService', 'statusService', 'enemyService']);
 
 ///////////// controlls variables //////////////////
-clickerGame.controller('ClickerController', function($scope, propertyFactory, statusFactory) {
+clickerGame.controller('ClickerController', function($scope, propertyFactory, statusFactory, enemyFactory) {
 
     $scope.player = statusFactory.playerStatus;
     $scope.lich = statusFactory.lichStatus;
     $scope.necromancy = statusFactory.necromancyStatus;
     $scope.stronghold = statusFactory.strongholdStatus;
     $scope.army = statusFactory.armyStatus;
+    $scope.enemy = enemyFactory;
 
     $scope.update = propertyFactory.updateProperties;
     $scope.undead = propertyFactory.undeadProperties;
     $scope.building = propertyFactory.buildingProperties;
+    $scope.human = propertyFactory.humanProperties;
 
     $(function () {
       $('[data-toggle = "tooltip"]').tooltip()

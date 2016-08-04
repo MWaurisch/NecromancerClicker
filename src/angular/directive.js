@@ -17,6 +17,14 @@ clickerDirective.directive('landscapeInterface', function() {
     };
 });
 
+// design of the battleinterface
+clickerDirective.directive('battleInterface', function() {
+    return {
+        restrict: 'E',
+        templateUrl: '',
+    };
+});
+
 // enable popover //
 clickerDirective.directive('toggle', function(){
   return {

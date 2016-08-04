@@ -54,7 +54,6 @@
             <button ng-click="summon(entry.id)" ng-disabled="disabled(entry.id)"
               ng-class="{norequirements: !requirements(entry.id), purchase: !disabled(entry.id), nomana: disabled(entry.id)}"
               data-toggle="popover" data-placement="left" data-trigger="hover" data-content='
-                          <div ng-show="requirements(entry.id)">
                             <table>
                               <tr>
                                 <td>Angriff:</td> <td>{{undead[entry.id].attack}}</td>
@@ -71,8 +70,7 @@
                               <tr>
                                 <td>Geschwindigkeit:</td> <td>{{undead[entry.id].speed}}</td>
                               </tr>
-                            </table>
-                          </div>'>
+                            </table>'>
                 <div class="col-md-11 row">
                     <div class="col-md-12 name">
                         {{undead[entry.id].name}}
@@ -110,15 +108,42 @@
 
     <!-- organize  -->
     <div class="col-md-9 row" ng-controller="AttackController">
-        <div class="col-md-6 row" ng-repeat="entry in necromancy" ng-show="navCtrl.isSelectedTab(4)">
+      <div ng-show="navCtrl.isSelectedTab(4)">
+        <div class="col-md-6 row">
+          <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" ng-repeat="entry in enemy">
+              <li>{{entry.name}}</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <button>Angriff starten</button>
+        </div>
+        <div class="col-md-6 row" ng-repeat="entry in necromancy">
           <div class="col-md-12">
             <button ng-click="increase(entry.id)" ng-disabled="increasedisabled(entry.id)" class="armybutton"
               ng-class="{creature: available(entry.id), nocreature: !available(entry.id)}"
-              data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content='<p>Angriff: {{entry.attack}}</p>
-                           <p>Verteidigung: {{entry.defence}}</p>
-                           <p>Schaden: {{entry.damage}}</p>
-                           <p>Lebenspunkte: {{entry.lifepoints}}</p>
-                           <p>Geschwindigkeit: {{entry.speed}}</p>'>
+              data-toggle="popover" data-placement="left" data-trigger="hover" data-content='
+                <table>
+                  <tr>
+                    <td>Angriff:</td> <td>{{undead[entry.id].attack}}</td>
+                  </tr>
+                  <tr>
+                    <td>Verteidigung:</td> <td>{{undead[entry.id].defence}}</td>
+                  </tr>
+                  <tr>
+                    <td>Schaden:</td> <td>{{undead[entry.id].damage}}</td>
+                  </tr>
+                  <tr>
+                    <td>Lebenspunkte:</td> <td>{{undead[entry.id].lifepoints}}</td>
+                  </tr>
+                  <tr>
+                    <td>Geschwindigkeit:</td> <td>{{undead[entry.id].speed}}</td>
+                  </tr>
+                </table>'>
               <div class="col-md-11 row">
                 <div class="col-md-12 name">
                   {{undead[entry.id].name}}
@@ -158,8 +183,8 @@
           </div>
 
         </div>
+      </div>
     </div>
-
 
     <!-- picture is changing with more power of the Lich -->
     <div class="col-md-3">
