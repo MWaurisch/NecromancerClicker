@@ -35,6 +35,7 @@ clickerDirective.directive('toggle', function(){
             html : true,
             trigger: 'hover',
             placement: 'left',
+            delay: {show: 650, hide: 0},
             content: function() {
               var content = $(this).attr("data-popover-content");
               return $(content).children(".popover-body").html();
@@ -42,31 +43,17 @@ clickerDirective.directive('toggle', function(){
             title: function() {
               var title = $(this).attr("data-popover-content");
               return $(title).children(".popover-heading").html();
-            }
+            },
         });
       }
       if (attrs.toggle=="popover"){
-        $(element).popover({html:true});
+        $(element).popover({
+          html:true,
+          trigger: 'hover',
+          placement: 'left',
+          delay: {show: 650, hide: 0},
+        });
       }
     }
   };
-});
-
-clickerDirective.directive('toggle', function(){
-  return {
-    restrict: 'A',
-    link: function(scope, element, attrs){
-$('.Count').each(function () {
-    $(this).prop('Counter',0).animate({
-        Counter: $(this).text()
-    }, {
-        duration: 1000,
-        easing: 'swing',
-        step: function (now) {
-            $(this).text(Math.ceil(now));
-        }
-    });
-});
-}
-};
 });

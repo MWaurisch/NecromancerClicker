@@ -8,7 +8,6 @@ angular.module('statusService', []).factory('statusFactory', function() {
         manapersecond: 0,
         manaperclick: 1,
         duration: 1000,
-        effect: "linear",
     },
 
     // status of purchased lich upgrades //

@@ -4,7 +4,7 @@
 <div class="col-md-4 row" ng-controller="ManaController">
     <button class="manapool" ng-click="getMana()"></button>
     <div class="counter mana" value="player.mana" to="player.targetmana" duration="player.duration"
-      effect="player.effect" finish="player.counterFinish()">
+      finish="player.counterFinish()">
       Mana: {{player.mana | number: 1}}
     </div>
     <div class="manapersecond">Mana/Click: {{player.manaperclick | number: 1}}</div>
@@ -41,7 +41,9 @@
     <!-- ////////////////////////////////////////////////////////////////////////////////////////  -->
     <div class="col-md-9 row" ng-controller="LichController">
         <div class="col-md-6 row cont" ng-repeat="entry in lich" ng-show="navCtrl.isSelectedTab(1)">
-            <button ng-click="upgrade(entry.id)" ng-disabled="disabled(entry.id)" ng-class="{purchase: !disabled(entry.id), nomana: disabled(entry.id)}" data-popover-content="#lichTooltip" data-toggle="tooltip">
+            <button ng-click="upgrade(entry.id)" ng-disabled="disabled(entry.id)"
+             ng-class="{purchase: !disabled(entry.id), nomana: disabled(entry.id)}"
+             data-popover-content="#lichTooltip" data-toggle="tooltip">
 
                 <!-- /////////// tooltip ///////////-->
                 <div class="hidden" id="lichTooltip">
@@ -71,13 +73,43 @@
     <!-- ////////////////////////////////////////////////////////////////////////////////////////  -->
     <div class="col-md-9 row" ng-controller="NecromancyController">
         <div class="col-md-6 row" ng-repeat="entry in necromancy" ng-show="navCtrl.isSelectedTab(2)">
-            <button ng-click="summon(entry.id)" ng-disabled="disabled(entry.id)" ng-class="{norequirements: !requirements(entry.id), purchase: !disabled(entry.id), nomana: disabled(entry.id)}" data-popover-content="#necroTooltip" data-toggle="tooltip">
+            <button ng-click="summon(entry.id)" ng-disabled="disabled(entry.id)"
+            ng-class="{norequirements: !requirements(entry.id), purchase: !disabled(entry.id), nomana: disabled(entry.id)}"
+            data-toggle="popover" data-content='
+                <table>
+                  <tr>
+                      <td>Angriff:</td>
+                      <td>{{undead[entry.id].attack}}</td>
+                  </tr>
+                  <tr>
+                      <td>Verteidigung:</td>
+                      <td>{{undead[entry.id].defence}}</td>
+                  </tr>
+                  <tr>
+                      <td>Schaden:</td>
+                      <td>{{undead[entry.id].damage}}</td>
+                  </tr>
+                  <tr>
+                      <td>Lebenspunkte:</td>
+                      <td>{{undead[entry.id].lifepoints}}</td>
+                  </tr>
+                  <tr>
+                      <td>Geschwindigkeit:</td>
+                      <td>{{undead[entry.id].speed}}</td>
+                  </tr>
+                </table>
+              </div>
+            '>
 
                 <!-- /////////// tooltip ///////////-->
+                <!-- data-popover-content="#necroTooltip" data-toggle="tooltip"
                 <div class="hidden" id="necroTooltip">
                     <div class="popover-body">
+                      <div>
                         <table>
                             <tr>
+                                <p>{{entry.id}}</p>
+                                <p>{{requirements(entry.id)}}</p>
                                 <td>Angriff:</td>
                                 <td>{{undead[entry.id].attack}}</td>
                             </tr>
@@ -98,8 +130,10 @@
                                 <td>{{undead[entry.id].speed}}</td>
                             </tr>
                         </table>
+                      </div>
                     </div>
                 </div>
+              -->
 
                 <!-- /////////// buttons ///////////-->
                 <div class="col-md-11 row">
@@ -122,7 +156,9 @@
     <!-- ////////////////////////////////////////////////////////////////////////////////////////  -->
     <div class="col-md-9 row" ng-controller="BuildingController">
         <div class="col-md-6 row" ng-repeat="entry in stronghold" ng-show="navCtrl.isSelectedTab(3)">
-            <button ng-click="build(entry.id)" ng-disabled="disabled(entry.id)" ng-class="{norequirements: !requirements(entry.id), purchase: !disabled(entry.id), nomana: disabled(entry.id)}" data-popover-content="#buildingTooltip" data-toggle="tooltip">
+            <button ng-click="build(entry.id)" ng-disabled="disabled(entry.id)"
+             ng-class="{norequirements: !requirements(entry.id), purchase: !disabled(entry.id), nomana: disabled(entry.id)}"
+             data-popover-content="#buildingTooltip" data-toggle="tooltip">
 
                 <!-- /////////// tooltip ///////////-->
                 <div class="hidden" id="buildingTooltip">
@@ -157,7 +193,8 @@
             <div class="col-md-12 row">
                 <div class="col-md-5 row">
                     <div class="dropdown">
-                        <button class="dropdown-toggle dropbutton" type="button" data-toggle="dropdown">{{enemy[attack.target].name}}
+                        <button class="dropdown-toggle dropbutton" type="button"
+                         data-toggle="dropdown">{{enemy[attack.target].name}}
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
@@ -172,7 +209,9 @@
 
             <div class="col-md-6 row" ng-repeat="entry in necromancy">
                 <div class="col-md-12 row">
-                    <button ng-click="increase(entry.id)" ng-disabled="increasedisabled(entry.id)" class="attackbutton" ng-class="{creature: available(entry.id), nocreature: !available(entry.id)}" data-popover-content="#attackTooltip" data-toggle="tooltip">
+                    <button ng-click="increase(entry.id)" ng-disabled="increasedisabled(entry.id)" class="attackbutton"
+                      ng-class="{creature: available(entry.id), nocreature: !available(entry.id)}"
+                      data-popover-content="#attackTooltip" data-toggle="tooltip">
 
                         <!-- /////////// tooltip ///////////-->
                         <div class="hidden" id="attackTooltip">
@@ -217,21 +256,24 @@
                     </button>
                 </div>
                 <div class="col-md-4 row">
-                    <button ng-click="decrease(entry.id)" ng-disabled="decreasedisabled(entry.id)" ng-class="{creature: available(entry.id), nocreature: !available(entry.id)}">
+                    <button ng-click="decrease(entry.id)" ng-disabled="decreasedisabled(entry.id)"
+                     ng-class="{creature: available(entry.id), nocreature: !available(entry.id)}">
                         <div class="name">
                             -
                         </div>
                     </button>
                 </div>
                 <div class="col-md-4 row">
-                    <button ng-click="all(entry.id)" ng-disabled="increasedisabled(entry.id)" ng-class="{creature: available(entry.id), nocreature: !available(entry.id)}">
+                    <button ng-click="all(entry.id)" ng-disabled="increasedisabled(entry.id)"
+                     ng-class="{creature: available(entry.id), nocreature: !available(entry.id)}">
                         <div class="name">
                             A
                         </div>
                     </button>
                 </div>
                 <div class="col-md-4 row">
-                    <button ng-click="none(entry.id)" ng-disabled="decreasedisabled(entry.id)" ng-class="{creature: available(entry.id), nocreature: !available(entry.id)}">
+                    <button ng-click="none(entry.id)" ng-disabled="decreasedisabled(entry.id)"
+                     ng-class="{creature: available(entry.id), nocreature: !available(entry.id)}">
                         <div class="name">
                             N
                         </div>
