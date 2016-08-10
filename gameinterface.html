@@ -1,4 +1,6 @@
-<!-- left side with mana -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////////  -->
+<!-- //////////////////////////////////// mana view /////////////////////////////////////////  -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////////  -->
 <div class="col-md-4 row" ng-controller="ManaController">
     <button class="manapool" ng-click="getMana()"></button>
     <div class="mana">Mana: {{player.mana | number: 1}}</div>
@@ -6,10 +8,14 @@
     <div class="manaperclick">Mana/Sekunde: {{player.manapersecond | number: 1}}</div>
 </div>
 
-<!-- right side with staff -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////////  -->
+<!-- //////////////////////////// game status view //////////////////////////////////////////  -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////////  -->
 <div class="col-md-8" ng-controller="NavController as navCtrl">
 
-    <!-- navigation -->
+    <!-- ////////////////////////////////////////////////////////////////////////////////////////  -->
+    <!-- //////////////////////////////////// navigation ////////////////////////////////////////  -->
+    <!-- ////////////////////////////////////////////////////////////////////////////////////////  -->
     <div class="nav">
         <ul>
             <li ng-class="{active: navCtrl.isSelectedTab(1)}">
@@ -27,12 +33,21 @@
         </ul>
     </div>
 
-    <!-- show upgrades for the lich -->
+    <!-- ////////////////////////////////////////////////////////////////////////////////////////  -->
+    <!-- /////////////////////////// show upgrades for the lich /////////////////////////////////  -->
+    <!-- ////////////////////////////////////////////////////////////////////////////////////////  -->
     <div class="col-md-9 row" ng-controller="LichController">
         <div class="col-md-6 row cont" ng-repeat="entry in lich" ng-show="navCtrl.isSelectedTab(1)">
-            <button ng-click="upgrade(entry.id)" ng-disabled="disabled(entry.id)"
-              ng-class="{purchase: !disabled(entry.id), nomana: disabled(entry.id)}"
-              data-toggle="popover" data-placement="left" data-trigger="hover" data-content="Tooltip">
+            <button ng-click="upgrade(entry.id)" ng-disabled="disabled(entry.id)" ng-class="{purchase: !disabled(entry.id), nomana: disabled(entry.id)}" data-popover-content="#lichTooltip" data-toggle="tooltip">
+
+                <!-- /////////// tooltip ///////////-->
+                <div class="hidden" id="lichTooltip">
+                    <div class="popover-body">
+                        Lich
+                    </div>
+                </div>
+
+                <!-- /////////// buttons ///////////-->
                 <div class="col-md-11 row">
                     <div class="col-md-12 name">
                         {{update[entry.id].name}}
@@ -48,29 +63,42 @@
         </div>
     </div>
 
-    <!-- show creatures for summoning by necromancy -->
+    <!-- ////////////////////////////////////////////////////////////////////////////////////////  -->
+    <!-- //////////////// show creatures for summoning by necromancy ////////////////////////////  -->
+    <!-- ////////////////////////////////////////////////////////////////////////////////////////  -->
     <div class="col-md-9 row" ng-controller="NecromancyController">
         <div class="col-md-6 row" ng-repeat="entry in necromancy" ng-show="navCtrl.isSelectedTab(2)">
-            <button ng-click="summon(entry.id)" ng-disabled="disabled(entry.id)"
-              ng-class="{norequirements: !requirements(entry.id), purchase: !disabled(entry.id), nomana: disabled(entry.id)}"
-              data-toggle="popover" data-placement="left" data-trigger="hover" data-content='
-                            <table>
-                              <tr>
-                                <td>Angriff:</td> <td>{{undead[entry.id].attack}}</td>
-                              </tr>
-                              <tr>
-                                <td>Verteidigung:</td> <td>{{undead[entry.id].defence}}</td>
-                              </tr>
-                              <tr>
-                                <td>Schaden:</td> <td>{{undead[entry.id].damage}}</td>
-                              </tr>
-                              <tr>
-                                <td>Lebenspunkte:</td> <td>{{undead[entry.id].lifepoints}}</td>
-                              </tr>
-                              <tr>
-                                <td>Geschwindigkeit:</td> <td>{{undead[entry.id].speed}}</td>
-                              </tr>
-                            </table>'>
+            <button ng-click="summon(entry.id)" ng-disabled="disabled(entry.id)" ng-class="{norequirements: !requirements(entry.id), purchase: !disabled(entry.id), nomana: disabled(entry.id)}" data-popover-content="#necroTooltip" data-toggle="tooltip">
+
+                <!-- /////////// tooltip ///////////-->
+                <div class="hidden" id="necroTooltip">
+                    <div class="popover-body">
+                        <table>
+                            <tr>
+                                <td>Angriff:</td>
+                                <td>{{undead[entry.id].attack}}</td>
+                            </tr>
+                            <tr>
+                                <td>Verteidigung:</td>
+                                <td>{{undead[entry.id].defence}}</td>
+                            </tr>
+                            <tr>
+                                <td>Schaden:</td>
+                                <td>{{undead[entry.id].damage}}</td>
+                            </tr>
+                            <tr>
+                                <td>Lebenspunkte:</td>
+                                <td>{{undead[entry.id].lifepoints}}</td>
+                            </tr>
+                            <tr>
+                                <td>Geschwindigkeit:</td>
+                                <td>{{undead[entry.id].speed}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- /////////// buttons ///////////-->
                 <div class="col-md-11 row">
                     <div class="col-md-12 name">
                         {{undead[entry.id].name}}
@@ -86,109 +114,133 @@
         </div>
     </div>
 
+    <!-- ////////////////////////////////////////////////////////////////////////////////////////  -->
+    <!-- /////////////////////////////// building overview///////////////////////////////////////  -->
+    <!-- ////////////////////////////////////////////////////////////////////////////////////////  -->
     <div class="col-md-9 row" ng-controller="BuildingController">
         <div class="col-md-6 row" ng-repeat="entry in stronghold" ng-show="navCtrl.isSelectedTab(3)">
-          <button ng-click="build(entry.id)" ng-disabled="disabled(entry.id)"
-            ng-class="{norequirements: !requirements(entry.id), purchase: !disabled(entry.id), nomana: disabled(entry.id)}"
-            data-toggle="popover" data-placement="left" data-trigger="hover" data-content="Tooltip">
-              <div class="col-md-11 row">
-                  <div class="col-md-12 name">
-                      {{building[entry.id].name}}
-                  </div>
-                  <div class="col-md-12 cost">
-                      Mana: {{entry.cost}}
-                  </div>
-              </div>
-              <div class="col-md-1 count">
-                  {{entry.level}}
-              </div>
-          </button>
+            <button ng-click="build(entry.id)" ng-disabled="disabled(entry.id)" ng-class="{norequirements: !requirements(entry.id), purchase: !disabled(entry.id), nomana: disabled(entry.id)}" data-popover-content="#buildingTooltip" data-toggle="tooltip">
+
+                <!-- /////////// tooltip ///////////-->
+                <div class="hidden" id="buildingTooltip">
+                    <div class="popover-body">
+                        Building
+                    </div>
+                </div>
+
+                <!-- /////////// buttons ///////////-->
+                <div class="col-md-11 row">
+                    <div class="col-md-12 name">
+                        {{building[entry.id].name}}
+                    </div>
+                    <div class="col-md-12 cost">
+                        Mana: {{entry.cost}}
+                    </div>
+                </div>
+                <div class="col-md-1 count">
+                    {{entry.level}}
+                </div>
+            </button>
         </div>
     </div>
 
-    <!-- organize  -->
+    <!-- ////////////////////////////////////////////////////////////////////////////////////////  -->
+    <!-- /////////////////////////////// organize attack ////////////////////////////////////////  -->
+    <!-- ////////////////////////////////////////////////////////////////////////////////////////  -->
     <div class="col-md-9 row" ng-controller="AttackController">
-      <div ng-show="navCtrl.isSelectedTab(4)">
-        <div class="col-md-6 row">
-          <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
-              <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" ng-repeat="entry in enemy">
-              <li>{{entry.name}}</li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <button>Angriff starten</button>
-        </div>
-        <div class="col-md-6 row" ng-repeat="entry in necromancy">
-          <div class="col-md-12">
-            <button ng-click="increase(entry.id)" ng-disabled="increasedisabled(entry.id)" class="armybutton"
-              ng-class="{creature: available(entry.id), nocreature: !available(entry.id)}"
-              data-toggle="popover" data-placement="left" data-trigger="hover" data-content='
-                <table>
-                  <tr>
-                    <td>Angriff:</td> <td>{{undead[entry.id].attack}}</td>
-                  </tr>
-                  <tr>
-                    <td>Verteidigung:</td> <td>{{undead[entry.id].defence}}</td>
-                  </tr>
-                  <tr>
-                    <td>Schaden:</td> <td>{{undead[entry.id].damage}}</td>
-                  </tr>
-                  <tr>
-                    <td>Lebenspunkte:</td> <td>{{undead[entry.id].lifepoints}}</td>
-                  </tr>
-                  <tr>
-                    <td>Geschwindigkeit:</td> <td>{{undead[entry.id].speed}}</td>
-                  </tr>
-                </table>'>
-              <div class="col-md-11 row">
-                <div class="col-md-12 name">
-                  {{undead[entry.id].name}}
-                </div>
-                <div class="col-md-12 cost">
-                  Verfügbar: {{entry.count}}
-                </div>
-              </div>
-              <div class="col-md-1 count">
-                {{army[entry.id].count}}
-              </div>
-            </button>
-          </div>
-          <div class="col-md-4">
-            <button ng-click="decrease(entry.id)" ng-disabled="decreasedisabled(entry.id)"
-              ng-class="{creature: available(entry.id), nocreature: !available(entry.id)}">
-              <div class="name">
-                -
-              </div>
-            </button>
-          </div>
-          <div class="col-md-4">
-            <button ng-click="all(entry.id)" ng-disabled="increasedisabled(entry.id)"
-              ng-class="{creature: available(entry.id), nocreature: !available(entry.id)}">
-              <div class="name">
-                A
-              </div>
-            </button>
-          </div>
-          <div class="col-md-4">
-            <button ng-click="none(entry.id)" ng-disabled="decreasedisabled(entry.id)"
-              ng-class="{creature: available(entry.id), nocreature: !available(entry.id)}">
-              <div class="name">
-                N
-              </div>
-            </button>
-          </div>
+        <div ng-show="navCtrl.isSelectedTab(4)">
 
+            <!-- /////////// target and attack button ///////////-->
+            <div class="col-md-12 row">
+                <div class="col-md-5 row">
+                    <div class="dropdown">
+                        <button class="dropdown-toggle dropbutton" type="button" data-toggle="dropdown">{{enemy[attack.target].name}}
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li ng-repeat="entry in enemy"><a ng-click="selectTarget(entry.id)">{{entry.name}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-5 col-md-offset-1">
+                    <button class="dropbutton">Angriff starten</button>
+                </div>
+            </div>
+
+            <div class="col-md-6 row" ng-repeat="entry in necromancy">
+                <div class="col-md-12 row">
+                    <button ng-click="increase(entry.id)" ng-disabled="increasedisabled(entry.id)" class="attackbutton" ng-class="{creature: available(entry.id), nocreature: !available(entry.id)}" data-popover-content="#attackTooltip" data-toggle="tooltip">
+
+                        <!-- /////////// tooltip ///////////-->
+                        <div class="hidden" id="attackTooltip">
+                            <div class="popover-body">
+                                <table>
+                                    <tr>
+                                        <td>Angriff:</td>
+                                        <td>{{undead[entry.id].attack}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Verteidigung:</td>
+                                        <td>{{undead[entry.id].defence}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Schaden:</td>
+                                        <td>{{undead[entry.id].damage}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Lebenspunkte:</td>
+                                        <td>{{undead[entry.id].lifepoints}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Geschwindigkeit:</td>
+                                        <td>{{undead[entry.id].speed}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- /////////// buttons ///////////-->
+                        <div class="col-md-11 row">
+                            <div class="col-md-12 name">
+                                {{undead[entry.id].name}}
+                            </div>
+                            <div class="col-md-12 cost">
+                                Verfügbar: {{entry.count}}
+                            </div>
+                        </div>
+                        <div class="col-md-1 count">
+                            {{attack.army[entry.id].count}}
+                        </div>
+                    </button>
+                </div>
+                <div class="col-md-4 row">
+                    <button ng-click="decrease(entry.id)" ng-disabled="decreasedisabled(entry.id)" ng-class="{creature: available(entry.id), nocreature: !available(entry.id)}">
+                        <div class="name">
+                            -
+                        </div>
+                    </button>
+                </div>
+                <div class="col-md-4 row">
+                    <button ng-click="all(entry.id)" ng-disabled="increasedisabled(entry.id)" ng-class="{creature: available(entry.id), nocreature: !available(entry.id)}">
+                        <div class="name">
+                            A
+                        </div>
+                    </button>
+                </div>
+                <div class="col-md-4 row">
+                    <button ng-click="none(entry.id)" ng-disabled="decreasedisabled(entry.id)" ng-class="{creature: available(entry.id), nocreature: !available(entry.id)}">
+                        <div class="name">
+                            N
+                        </div>
+                    </button>
+                </div>
+
+            </div>
         </div>
-      </div>
     </div>
 
     <!-- picture is changing with more power of the Lich -->
     <div class="col-md-3">
         Bild vom Lich
     </div>
-
 </div>

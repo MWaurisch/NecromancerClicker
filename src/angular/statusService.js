@@ -137,28 +137,32 @@ angular.module('statusService', []).factory('statusFactory', function() {
     }, ],
 
     // status of selected creatures for attack //
-    armyStatus : [{
-      //Skelettkrieger
-      count: 0,
-    }, {
-      //Skelettschütze
-      count: 0,
-    }, {
-      //Zombie
-      count: 0,
-    }, {
-      //Gespenst
-      count: 0,
-    }, {
-      //Todesritter
-      count: 0,
-    }, {
-      //Skelettgigant
-      count: 0,
-    }, {
-      //Ghoul
-      count: 0,
-    }, ],
+    attackStatus : {
+      //enemyTownID
+      target: 0,
+      army: [{
+        //Skelettkrieger
+        count: 0,
+      }, {
+        //Skelettschütze
+        count: 0,
+      }, {
+        //Zombie
+        count: 0,
+      }, {
+        //Gespenst
+        count: 0,
+      }, {
+        //Todesritter
+        count: 0,
+      }, {
+        //Skelettgigant
+        count: 0,
+      }, {
+        //Ghoul
+        count: 0,
+      }, ],
+    },
   };
 
   return data;

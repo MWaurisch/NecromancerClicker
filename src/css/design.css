@@ -6,6 +6,7 @@
 .gameinterface {
   display:block;
   overflow:auto;
+  min-height: 60vh;
   background-color: #fbeebb;
 }
 
@@ -120,11 +121,20 @@
 }
 /* nomana end */
 
-.armybutton {
+.dropbutton {
+  width: 100%;
+  display: block;
+  background-color: #d0d5d1;
+  font-size: 16px;
+  color: #6a3d3f;
+  margin-bottom: 7px;
+}
+
+.attackbutton {
   margin-top: 7px;
 }
 
-/* creature isn't available for army */
+/* creature isn't available for attack */
 .nocreature {
   width: 100%;
   display: block;
@@ -144,7 +154,7 @@
 }
 /* nocreature end */
 
-/* creature is available for army */
+/* creature is available for attack */
 .creature {
   width: 100%;
   display: block;

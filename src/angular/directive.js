@@ -31,7 +31,19 @@ clickerDirective.directive('toggle', function(){
     restrict: 'A',
     link: function(scope, element, attrs){
       if (attrs.toggle=="tooltip"){
-        $(element).tooltip();
+        $(element).popover({
+            html : true,
+            trigger: 'hover',
+            placement: 'left',
+            content: function() {
+              var content = $(this).attr("data-popover-content");
+              return $(content).children(".popover-body").html();
+            },
+            title: function() {
+              var title = $(this).attr("data-popover-content");
+              return $(title).children(".popover-heading").html();
+            }
+        });
       }
       if (attrs.toggle=="popover"){
         $(element).popover({html:true});

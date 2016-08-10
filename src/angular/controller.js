@@ -8,8 +8,8 @@ clickerGame.controller('ClickerController', function($scope, propertyFactory, st
     $scope.lich = statusFactory.lichStatus;
     $scope.necromancy = statusFactory.necromancyStatus;
     $scope.stronghold = statusFactory.strongholdStatus;
-    $scope.army = statusFactory.armyStatus;
-    $scope.enemy = enemyFactory;
+    $scope.attack = statusFactory.attackStatus;
+    $scope.enemy = enemyFactory.enemyStatus;
 
     $scope.update = propertyFactory.updateProperties;
     $scope.undead = propertyFactory.undeadProperties;
@@ -62,7 +62,7 @@ clickerGame.controller('LichController', function($scope) {
     };
 });
 
-//////////// controls size of army /////////////////
+//////////// controls size of attack /////////////////
 clickerGame.controller('NecromancyController', function($scope) {
 
     // add a creature and reduce mana by cost //
@@ -110,31 +110,35 @@ clickerGame.controller('BuildingController', function($scope) {
     };
 });
 
-//////////// controls size of attacking army /////////////////
+//////////// controls size of attacking attack /////////////////
 clickerGame.controller('AttackController', function($scope) {
 
+    $scope.selectTarget = function(id) {
+      $scope.attack.target = id;
+    };
+
     $scope.increase = function(id) {
-      $scope.army[id].count++;
+      $scope.attack.army[id].count++;
     };
 
     $scope.decrease = function(id) {
-      $scope.army[id].count--;
+      $scope.attack.army[id].count--;
     };
 
     $scope.all = function(id) {
-      $scope.army[id].count = $scope.necromancy[id].count;
+      $scope.attack.army[id].count = $scope.necromancy[id].count;
     };
 
     $scope.none = function(id) {
-      $scope.army[id].count = 0;
+      $scope.attack.army[id].count = 0;
     };
 
     $scope.increasedisabled = function(id) {
-      return $scope.army[id].count >= $scope.necromancy[id].count;
+      return $scope.attack.army[id].count >= $scope.necromancy[id].count;
     };
 
     $scope.decreasedisabled = function(id) {
-      return $scope.army[id].count <= 0;
+      return $scope.attack.army[id].count <= 0;
     };
 
     $scope.available = function(id) {
