@@ -1,9 +1,12 @@
-<!-- ////////////////////////////////////////////////////////////////////////////////////////  -->
+<!-- ////////////////// Count//////////////////////////////////////////////////////////////////////  -->
 <!-- //////////////////////////////////// mana view /////////////////////////////////////////  -->
 <!-- ////////////////////////////////////////////////////////////////////////////////////////  -->
 <div class="col-md-4 row" ng-controller="ManaController">
     <button class="manapool" ng-click="getMana()"></button>
-    <div class="mana">Mana: {{player.mana | number: 1}}</div>
+    <div class="counter mana" value="player.mana" to="player.targetmana" duration="player.duration"
+      effect="player.effect" finish="player.counterFinish()">
+      Mana: {{player.mana | number: 1}}
+    </div>
     <div class="manapersecond">Mana/Click: {{player.manaperclick | number: 1}}</div>
     <div class="manaperclick">Mana/Sekunde: {{player.manapersecond | number: 1}}</div>
 </div>

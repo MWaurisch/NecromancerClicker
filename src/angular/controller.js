@@ -1,5 +1,5 @@
 
-var clickerGame = angular.module('clickerGame', ['directive', 'propertyService', 'statusService', 'enemyService']);
+var clickerGame = angular.module('clickerGame', ['directive', 'counter', 'propertyService', 'statusService', 'enemyService']);
 
 ///////////// controlls variables //////////////////
 clickerGame.controller('ClickerController', function($scope, propertyFactory, statusFactory, enemyFactory) {
@@ -26,7 +26,8 @@ clickerGame.controller('ManaController', function($scope, $interval) {
 
     // increase amount of mana by manapersecond from lich upgrades //
     $scope.manaPerSecond = function() {
-        $scope.player.mana += $scope.player.manapersecond;
+        $scope.player.mana = $scope.player.targetmana;
+        $scope.player.targetmana += $scope.player.manapersecond;
     };
 
     // call manaPerSecond every second //
@@ -37,6 +38,7 @@ clickerGame.controller('ManaController', function($scope, $interval) {
     // add mana by clicking the manapool //
     $scope.getMana = function() {
         $scope.player.mana += $scope.player.manaperclick;
+        $scope.player.targetmana += $scope.player.manaperclick;
     };
 });
 
@@ -44,7 +46,8 @@ clickerGame.controller('ManaController', function($scope, $interval) {
 clickerGame.controller('LichController', function($scope) {
 
     $scope.upgrade = function(id) {
-      $scope.player.mana -= $scope.lich[id].cost;
+      //$scope.player.mana -= $scope.lich[id].cost;
+      $scope.player.targetmana -= $scope.lich[id].cost;
       $scope.lich[id].level++;
 
       if ($scope.update[id].clicker) {
@@ -67,7 +70,8 @@ clickerGame.controller('NecromancyController', function($scope) {
 
     // add a creature and reduce mana by cost //
     $scope.summon = function(id) {
-        $scope.player.mana -= $scope.undead[id].cost;
+        //$scope.player.mana -= $scope.undead[id].cost;
+        $scope.player.targetmana -= $scope.undead[id].cost;
         $scope.necromancy[id].count++;
     };
 
@@ -90,7 +94,8 @@ clickerGame.controller('NecromancyController', function($scope) {
 clickerGame.controller('BuildingController', function($scope) {
 
     $scope.build = function(id) {
-      $scope.player.mana -= $scope.stronghold[id].cost;
+      //$scope.player.mana -= $scope.stronghold[id].cost;
+      $scope.player.targetmana -= $scope.undead[id].cost;
       $scope.stronghold[id].cost += Math.round($scope.stronghold[id].cost * 0.5);
       $scope.stronghold[id].level++;
     };

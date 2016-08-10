@@ -1,12 +1,14 @@
 angular.module('statusService', []).factory('statusFactory', function() {
 
   var data ={
-
     // status of mana //
     playerStatus : {
-        mana: 120,
+        mana: 0,
+        targetmana: 120,
         manapersecond: 0,
         manaperclick: 1,
+        duration: 1000,
+        effect: "linear",
     },
 
     // status of purchased lich upgrades //

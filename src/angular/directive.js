@@ -51,3 +51,22 @@ clickerDirective.directive('toggle', function(){
     }
   };
 });
+
+clickerDirective.directive('toggle', function(){
+  return {
+    restrict: 'A',
+    link: function(scope, element, attrs){
+$('.Count').each(function () {
+    $(this).prop('Counter',0).animate({
+        Counter: $(this).text()
+    }, {
+        duration: 1000,
+        easing: 'swing',
+        step: function (now) {
+            $(this).text(Math.ceil(now));
+        }
+    });
+});
+}
+};
+});
