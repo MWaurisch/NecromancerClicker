@@ -3,7 +3,7 @@
   background-color: #008000;
 }
 
-.gameinterface {
+.menubar {
   display:block;
   overflow:auto;
   min-height: 60vh;
@@ -41,8 +41,8 @@
   margin: 15px auto 15px;
   border-radius: 100%;
   border: 1px solid #000000;
-  width: 250px;
-  height: 250px;
+  width: 200px;
+  height: 200px;
 }
 .mana {
   font-size: 16px;
@@ -60,26 +60,6 @@
   text-align: center;
 }
 /* manapool end */
-
-/* requirements not fullfiled */
-.norequirements {
-  width: 100%;
-  display: block;
-  background-color: #b20000 !important;
-}
-.norequirements .name{
-  font-size: 16px;
-  color: #660000 !important;
-}
-.norequirements .cost{
-  font-size: 10px;
-  color: #660000 !important;
-}
-.norequirements .count{
-  font-size: 30px;
-  color: #660000 !important;
-}
-/* requirements end */
 
 /* requirements fullfiled, mana existend */
 .purchase {
@@ -120,56 +100,3 @@
   color: #8a978c;
 }
 /* nomana end */
-
-.dropbutton {
-  width: 100%;
-  display: block;
-  background-color: #d0d5d1;
-  font-size: 16px;
-  color: #6a3d3f;
-  margin-bottom: 7px;
-}
-
-.attackbutton {
-  margin-top: 7px;
-}
-
-/* creature isn't available for attack */
-.nocreature {
-  width: 100%;
-  display: block;
-  background-color: #d0d5d1;
-}
-.nocreature .name {
-  font-size: 16px;
-  color: #8a978c;
-}
-.nocreature .cost {
-  font-size: 10px;
-  color: #8a978c;
-}
-.nocreature .count {
-  font-size: 30px;
-  color: #8a978c;
-}
-/* nocreature end */
-
-/* creature is available for attack */
-.creature {
-  width: 100%;
-  display: block;
-  background-color: #d0d5d1;
-}
-.creature .name {
-  font-size: 16px;
-  color: #6a3d3f;
-}
-.creature .cost {
-  font-size: 10px;
-  color: #266585;
-}
-.creature .count {
-  font-size: 30px;
-  color: #969ca6;
-}
-/* creature end */

@@ -1,0 +1,11 @@
+<div class="playerInterface">
+  <div ng-controller="ManaController as manaCtrl">
+    <button class="manapool" ng-click="manaCtrl.getManaPerClick()"></button>
+    <div class="counter mana" value="manaCtrl.manaStatus.amount" to="manaCtrl.manaStatus.targetamount"
+     duration="manaCtrl.manaStatus.duration" finish="manaCtrl.mana.counterFinish()">
+      Mana: {{manaCtrl.manaStatus.amount | number: 1}}
+    </div>
+    <div class="manapersecond">Mana/Click: {{manaCtrl.manaStatus.manaPerClick | number: 1}}</div>
+    <div class="manaperclick">Mana/Sekunde: {{manaCtrl.manaStatus.manaPerSecond | number: 1}}</div>
+  </div>
+</div>

@@ -1,35 +1,53 @@
 <!DOCTYPE html>
 
-  <html lang="de" ng-app="clickerGame">
+  <html lang="de" ng-app="NecroClicker">
     <head>
       <meta charset="utf-8"></meta>
-      <title>Markus' ClickerGame</title>
+      <title>NecromamcerClicker</title>
 
       <script src="node_modules/angular/angular.js"></script>
       <script src="node_modules/jquery/dist/jquery.js"></script>
       <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
       <script src="node_modules/angular-counter/js/angular-counter.min.js"></script>
 
-      <script src="src/angular/directive.js"></script>
-      <script src="src/angular/propertyService.js"></script>
-      <script src="src/angular/statusService.js"></script>
-      <script src="src/angular/enemyService.js"></script>
-      <script src="src/angular/controller.js"></script>
+      <script src="src/angular/main.js"></script>
+      <script src="src/angular/controller/navigation.controller.js"></script>
+      <script src="src/angular/controller/mana.controller.js"></script>
+      <script src="src/angular/controller/lich.controller.js"></script>
+      <script src="src/angular/controller/necromancy.controller.js"></script>
+      <script src="src/angular/controller/building.controller.js"></script>
+      <script src="src/angular/controller/attack.controller.js"></script>
+
+      <script src="src/angular/factory/mana.factory.js"></script>
+      <script src="src/angular/factory/lich.factory.js"></script>
+      <script src="src/angular/factory/necromancy.factory.js"></script>
+      <script src="src/angular/factory/building.factory.js"></script>
+
+      <script src="src/angular/directive/manaInterface.directive.js"></script>
+      <script src="src/angular/directive/statusInterface.directive.js"></script>
+      <script src="src/angular/directive/landscape.directive.js"></script>
 
       <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
       <link rel="stylesheet" href="src/css/design.css">
 
     </head>
-    <body ng-controller="ClickerController">
+    <body>
 
       <div class="landscape">
       </div>
 
-      <div class="gameinterface">
-        <game-interface></game-interface>
-      </div>
-
-      <div class="battleinterface">
+      <div class="menubar">
+        <div class="col-md-4 row">
+          <mana-directive></mana-directive>
+        </div>
+        <div class="col-md-8 row">
+          <div class="col-md-9 row">
+            <status-directive></status-directive>
+          </div>
+          <div class="col-md-3 row">
+            Lichbild
+          </div>
+        </div>
       </div>
 
     </body>

@@ -1,0 +1,95 @@
+<!-- Navigation -->
+<div ng-controller="NavigationController as navCtrl">
+
+    <div class="nav">
+        <ul>
+            <li ng-class="{active: navCtrl.isSelectedTab(1)}">
+                <a ng-click="navCtrl.selectTab(1)">Lich</a>
+            </li>
+            <li ng-class="{active: navCtrl.isSelectedTab(2)}">
+                <a ng-click="navCtrl.selectTab(2)">Nekromantie</a>
+            </li>
+            <li ng-class="{active: navCtrl.isSelectedTab(3)}">
+                <a ng-click="navCtrl.selectTab(3)">Stadt</a>
+            </li>
+            <li ng-class="{active: navCtrl.isSelectedTab(4)}">
+                <a ng-click="navCtrl.selectTab(4)">Angriff</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- generate buttons to purchase upgrades -->
+    <div ng-controller="LichController as lichCtrl" ng-show="navCtrl.isSelectedTab(1)">
+      <div class="col-md-6 row" ng-repeat="lichUpgrade in lichCtrl.lichStatus">
+        <button ng-click="lichCtrl.getUpgrade(lichUpgrade.id)"
+         ng-disabled="!lichCtrl.manaAvailable(lichUpgrade.id)"
+         ng-class="{purchase: lichCtrl.manaAvailable(lichUpgrade.id), nomana: !lichCtrl.manaAvailable(lichUpgrade.id)}"
+        >
+          <div class="col-md-11 row">
+            <div class="col-md-12 name">
+              {{lichUpgrade.name}}
+            </div>
+            <div class="col-md-12 cost">
+              Mana: {{lichUpgrade.cost}}
+            </div>
+          </div>
+          <div class="col-md-1 count">
+            {{lichUpgrade.level}}
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <!-- generate buttons to summon creatures -->
+    <div ng-controller="NecromancyController as necroCtrl" ng-show="navCtrl.isSelectedTab(2)">
+      <div class="col-md-6 row" ng-repeat="necroCreature in necroCtrl.necromancyStatus">
+
+        <button ng-click="necroCtrl.getCreature(necroCreature.id)"
+         ng-disabled="!necroCtrl.manaAvailable(necroCreature.id) || !necroCtrl.requirementsFullfil(necroCreature.id)"
+         ng-class="{purchase: necroCtrl.manaAvailable(necroCreature.id), nomana: !necroCtrl.manaAvailable(necroCreature.id) || !necroCtrl.requirementsFullfil(necroCreature.id)}"
+        >
+          <div class="col-md-11 row">
+            <div class="col-md-12 name">
+              {{necroCreature.name}}
+            </div>
+            <div class="col-md-12 cost">
+              Mana: {{necroCreature.cost}}
+            </div>
+          </div>
+          <div class="col-md-1 count">
+            {{necroCreature.count}}
+          </div>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- generate buttons to summon buildings -->
+    <div ng-controller="BuildingController as buildCtrl" ng-show="navCtrl.isSelectedTab(3)">
+      <div class="col-md-6 row" ng-repeat="building in buildCtrl.buildingStatus">
+
+        <button ng-click="buildCtrl.getBuilding(building.id)"
+         ng-disabled="!buildCtrl.manaAvailable(building.id) || !buildCtrl.requirementsFullfil(building.id)"
+         ng-class="{purchase: buildCtrl.manaAvailable(building.id), nomana: !buildCtrl.manaAvailable(building.id) || !buildCtrl.requirementsFullfil(building.id)}"
+        >
+          <div class="col-md-11 row">
+            <div class="col-md-12 name">
+              {{building.name}}
+            </div>
+            <div class="col-md-12 cost">
+              Mana: {{building.cost}}
+            </div>
+          </div>
+          <div class="col-md-1 count">
+            {{building.level}}
+          </div>
+        </button>
+
+      </div>
+    </div>
+
+    <div ng-show="navCtrl.isSelectedTab(4)">
+      Angriff Menu
+    </div>
+
+</div>
