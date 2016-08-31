@@ -20,11 +20,12 @@
 
     <!-- generate buttons to purchase upgrades -->
     <div ng-controller="LichController as lichCtrl" ng-show="navCtrl.isSelectedTab(1)">
+
       <div class="col-md-6 row" ng-repeat="lichUpgrade in lichCtrl.lichStatus">
         <button ng-click="lichCtrl.getUpgrade(lichUpgrade.id)"
          ng-disabled="!lichCtrl.manaAvailable(lichUpgrade.id)"
          ng-class="{purchase: lichCtrl.manaAvailable(lichUpgrade.id), nomana: !lichCtrl.manaAvailable(lichUpgrade.id)}"
-        >
+         tooltip-directive data-toggle="lichTooltip" value="lichUpgrade">
           <div class="col-md-11 row">
             <div class="col-md-12 name">
               {{lichUpgrade.name}}
@@ -47,7 +48,7 @@
         <button ng-click="necroCtrl.getCreature(necroCreature.id)"
          ng-disabled="!necroCtrl.manaAvailable(necroCreature.id) || !necroCtrl.requirementsFullfil(necroCreature.id)"
          ng-class="{purchase: necroCtrl.manaAvailable(necroCreature.id), nomana: !necroCtrl.manaAvailable(necroCreature.id) || !necroCtrl.requirementsFullfil(necroCreature.id)}"
-        >
+         tooltip-directive data-toggle="necroTooltip" value="necroCreature" requirements="necroCtrl.requirementsFullfil(necroCreature.id)">
           <div class="col-md-11 row">
             <div class="col-md-12 name">
               {{necroCreature.name}}
