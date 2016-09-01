@@ -1,4 +1,5 @@
 (function() {
+  'use strict';
 
   angular
     .module('NecroClicker')
@@ -77,7 +78,7 @@
         cost: 12800,
         clicker: true,
         manaperclick: 2.5,
-      }, ];
+      }];
 
       var factory = {
         lichStatus: lichStatus,

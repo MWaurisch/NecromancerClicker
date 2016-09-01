@@ -75,28 +75,63 @@
   font-size: 10px;
   color: #266585;
 }
-.purchase .count {
+.purchase .amount {
   font-size: 30px;
   color: #969ca6;
 }
 /* purchase end */
 
-/* requirements not fullfiled, no mana existend */
+/* not enough mana existend */
 .nomana {
-  width: 100%;
-  display: block;
-  background-color: #d0d5d1;
+  width: 100% !important;
+  display: block !important;
+  background-color: #d0d5d1 !important;
 }
 .nomana .name {
-  font-size: 16px;
-  color: #8a978c;
+  font-size: 16px !important;
+  color: #8a978c !important;
 }
 .nomana .cost {
-  font-size: 10px;
-  color: #8a978c;
+  font-size: 10px !important;
+  color: #8a978c !important;
 }
-.nomana .count {
-  font-size: 30px;
-  color: #8a978c;
+.nomana .amount {
+  font-size: 30px !important;
+  color: #8a978c !important;
 }
 /* nomana end */
+
+/* requirements not fullfiled */
+.norequirement {
+  width: 100% !important;
+  display: block !important;
+  background-color: #d0d5d1 !important;
+}
+.norequirement .name {
+  font-size: 16px !important;
+  color: #996666 !important;
+}
+.norequirement .cost {
+  font-size: 10px !important;
+  color: #996666 !important;
+}
+.norequirement .amount {
+  font-size: 30px !important;
+  color: #996666 !important;
+}
+/* nomana end */
+
+/* tooltip design */
+.popover {
+  background-color: #d0d5d1;
+  color: #6a3d3f;
+}
+.popover-title {
+  background-color: #d0d5d1;
+  color: #6a3d3f;
+}
+.popover table {
+  border-collapse: separate;
+  border-spacing: 6px;
+}
+/* tooltip design end */

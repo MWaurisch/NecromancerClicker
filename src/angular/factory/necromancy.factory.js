@@ -11,7 +11,7 @@
       var necromancyStatus = [{
         name: "Skelettkrieger",
         id: 0,
-        count: 10,
+        amount: 10,
         attack: 5,
         defence: 4,
         damage: 2,
@@ -23,7 +23,7 @@
       }, {
         name: "Skelettschütze",
         id: 1,
-        count: 5,
+        amount: 5,
         attack: 6,
         defence: 2,
         damage: 3,
@@ -35,7 +35,7 @@
       }, {
         name: "Zombie",
         id: 2,
-        count: 0,
+        amount: 0,
         attack: 7,
         defence: 7,
         damage: 4,
@@ -47,7 +47,7 @@
       }, {
         name: "Gespenst",
         id: 3,
-        count: 0,
+        amount: 0,
         attack: 10,
         defence: 9,
         damage: 7,
@@ -59,7 +59,7 @@
       }, {
         name: "Todesritter",
         id: 4,
-        count: 0,
+        amount: 0,
         attack: 13,
         defence: 10,
         damage: 13,
@@ -71,7 +71,7 @@
       }, {
         name: "Skelettgigant",
         id: 5,
-        count: 0,
+        amount: 0,
         attack: 17,
         defence: 15,
         damage: 22,
@@ -83,7 +83,7 @@
       }, {
         name: "Ghoul",
         id: 6,
-        count: 0,
+        amount: 0,
         attack: 24,
         defence: 24,
         damage: 50,
@@ -109,11 +109,11 @@
       ////////////////////////////////////////////
 
       function increaseCreatureCount(id, value) {
-        necromancyStatus[id].count += value;
+        necromancyStatus[id].amount += value;
       };
 
       function decreaseCreatureCount(id, value) {
-        necromancyStatus[id].count -= value;
+        necromancyStatus[id].amount -= value;
       };
 
     };

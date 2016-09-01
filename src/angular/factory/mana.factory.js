@@ -10,7 +10,7 @@
       // status of player mana and mana generation //
       var manaStatus = {
         amount: 0,
-        targetamount: 5000,
+        targetamount: 100,
         duration: 1000,
         manaPerClick: 1,
         manaPerSecond: 0,

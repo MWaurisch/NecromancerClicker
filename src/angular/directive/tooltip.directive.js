@@ -5,58 +5,65 @@
     .module('NecroClicker')
     .directive('tooltipDirective', TooltipDirective);
 
-    function TooltipDirective(){
+    TooltipDirective.$inject = ['LichFactory', 'NecromancyFactory', 'BuildingFactory'];
+
+    function TooltipDirective(LichFactory, NecromancyFactory, BuildingFactory){
       return {
         restrict: 'A',
         link: function(scope, element, attrs){
 
+          var lichStatus = LichFactory.lichStatus;
+          var necromancyStatus = NecromancyFactory.necromancyStatus;
+          var buildingStatus = BuildingFactory.buildingStatus;
+
           if (attrs.toggle=="lichTooltip"){
-            var lichValue = scope.$eval(attrs.value);
+            var upgradeid = scope.$eval(attrs.upgradeid);
+
             $(element).popover({
               html: true,
               trigger: 'hover',
               placement: 'left',
               delay: {show: 650, hide: 0},
+              title: lichStatus[upgradeid].name,
               content: '<table>' +
                   '<tr>' +
                       '<td>Name:</td>' +
-                      '<td>' + lichValue.name + '</td>' +
+                      '<td>' + lichStatus[upgradeid].name + '</td>' +
                   '</tr>' +
                   '<tr>' +
                       '<td>Kosten:</td>' +
-                      '<td>' + lichValue.cost + '</td>' +
+                      '<td>' + lichStatus[upgradeid].cost + '</td>' +
                   '</tr>' +
                 '</table>',
             });
           }
 
-          if (attrs.toggle=="necroTooltip"){
-            var necroValue = scope.$eval(attrs.value);
-            var requirements = scope.$eval(attrs.requirements);
-            var buildingName = ['Friedhof', 'Schmiede', 'Kaserne', 'Ställe', 'Burg', 'Nekroverstärker', 'Geisterportal', 'Ritualkreis'];
+          if (attrs.toggle=="necroTooltip" || attrs.toggle=="attackTooltip"){
+            var creatureid = scope.$eval(attrs.creatureid);
+            var requirementsFullfil = scope.$eval(attrs.requirements);
             var tooltipContent;
 
-            if (requirements){
+            if (requirementsFullfil){
               tooltipContent = '<table>' +
                   '<tr>' +
                       '<td>Angriff:</td>' +
-                      '<td>' + necroValue.attack + '</td>' +
+                      '<td>' + necromancyStatus[creatureid].attack + '</td>' +
                   '</tr>' +
                   '<tr>' +
                       '<td>Verteidigung:</td>' +
-                      '<td>' + necroValue.defence + '</td>' +
+                      '<td>' + necromancyStatus[creatureid].defence + '</td>' +
                   '</tr>' +
                   '<tr>' +
                       '<td>Schaden:</td>' +
-                      '<td>' + necroValue.damage + '</td>' +
+                      '<td>' + necromancyStatus[creatureid].damage + '</td>' +
                   '</tr>' +
                   '<tr>' +
                       '<td>Lebenspunkte:</td>' +
-                      '<td>' + necroValue.lifepoints + '</td>' +
+                      '<td>' + necromancyStatus[creatureid].lifepoints + '</td>' +
                   '</tr>' +
                   '<tr>' +
                       '<td>Geschwindigkeit:</td>' +
-                      '<td>' + necroValue.speed + '</td>' +
+                      '<td>' + necromancyStatus[creatureid].speed + '</td>' +
                   '</tr>' +
                 '</table>';
             }
@@ -65,10 +72,10 @@
                   '<table>';
 
               for (var i = 0; i < 8; i++){
-                if (necroValue.require[i] > 0){
+                if (necromancyStatus[creatureid].require[i] > 0){
                   tooltipContent += '<tr>' +
-                      '<td>' + buildingName[i] + ':</td>' +
-                      '<td>' + necroValue.require[i] + '</td>' +
+                      '<td>' + buildingStatus[i].name + ':</td>' +
+                      '<td>' + necromancyStatus[creatureid].require[i] + '</td>' +
                     '</tr>';
                 }
               }
@@ -80,7 +87,45 @@
               trigger: 'hover',
               placement: 'left',
               delay: {show: 650, hide: 0},
-              title: necroValue.name,
+              title: necromancyStatus[creatureid].name,
+              content: tooltipContent,
+            });
+          }
+
+          if (attrs.toggle=="buildingTooltip"){
+            var buildingid = scope.$eval(attrs.buildingid);
+            var requirementsFullfil = scope.$eval(attrs.requirements);
+            var tooltipContent;
+
+            if (requirementsFullfil){
+              tooltipContent = '<table>' +
+                  '<tr>' +
+                      '<td>Text:</td>' +
+                      '<td>Dieses Gebäude bla</td>' +
+                  '</tr>' +
+                '</table>';
+            }
+            else {
+              tooltipContent = 'Anforderungen' +
+                  '<table>';
+
+              for (var i = 0; i < 8; i++){
+                if (buildingStatus[buildingid].require[i] > 0){
+                  tooltipContent += '<tr>' +
+                      '<td>' + buildingStatus[i].name + ':</td>' +
+                      '<td>' + buildingStatus[buildingid].require[i] + '</td>' +
+                    '</tr>';
+                }
+              }
+              tooltipContent += '</table>';
+            }
+
+            $(element).popover({
+              html: true,
+              trigger: 'hover',
+              placement: 'left',
+              delay: {show: 650, hide: 0},
+              title: buildingStatus[buildingid].name,
               content: tooltipContent,
             });
           }

@@ -22,10 +22,10 @@
     <div ng-controller="LichController as lichCtrl" ng-show="navCtrl.isSelectedTab(1)">
 
       <div class="col-md-6 row" ng-repeat="lichUpgrade in lichCtrl.lichStatus">
-        <button ng-click="lichCtrl.getUpgrade(lichUpgrade.id)"
+        <button class="purchase" ng-click="lichCtrl.getUpgrade(lichUpgrade.id)"
          ng-disabled="!lichCtrl.manaAvailable(lichUpgrade.id)"
-         ng-class="{purchase: lichCtrl.manaAvailable(lichUpgrade.id), nomana: !lichCtrl.manaAvailable(lichUpgrade.id)}"
-         tooltip-directive data-toggle="lichTooltip" value="lichUpgrade">
+         ng-class="{nomana: !lichCtrl.manaAvailable(lichUpgrade.id)}"
+         tooltip-directive data-toggle="lichTooltip" upgradeid="lichUpgrade.id">
           <div class="col-md-11 row">
             <div class="col-md-12 name">
               {{lichUpgrade.name}}
@@ -34,7 +34,7 @@
               Mana: {{lichUpgrade.cost}}
             </div>
           </div>
-          <div class="col-md-1 count">
+          <div class="col-md-1 amount">
             {{lichUpgrade.level}}
           </div>
         </button>
@@ -45,10 +45,10 @@
     <div ng-controller="NecromancyController as necroCtrl" ng-show="navCtrl.isSelectedTab(2)">
       <div class="col-md-6 row" ng-repeat="necroCreature in necroCtrl.necromancyStatus">
 
-        <button ng-click="necroCtrl.getCreature(necroCreature.id)"
+        <button class="purchase" ng-click="necroCtrl.getCreature(necroCreature.id)"
          ng-disabled="!necroCtrl.manaAvailable(necroCreature.id) || !necroCtrl.requirementsFullfil(necroCreature.id)"
-         ng-class="{purchase: necroCtrl.manaAvailable(necroCreature.id), nomana: !necroCtrl.manaAvailable(necroCreature.id) || !necroCtrl.requirementsFullfil(necroCreature.id)}"
-         tooltip-directive data-toggle="necroTooltip" value="necroCreature" requirements="necroCtrl.requirementsFullfil(necroCreature.id)">
+         ng-class="{nomana: !necroCtrl.manaAvailable(necroCreature.id), norequirement: !necroCtrl.requirementsFullfil(necroCreature.id)}"
+         tooltip-directive data-toggle="necroTooltip" creatureid="necroCreature.id" requirements="necroCtrl.requirementsFullfil(necroCreature.id)">
           <div class="col-md-11 row">
             <div class="col-md-12 name">
               {{necroCreature.name}}
@@ -57,8 +57,8 @@
               Mana: {{necroCreature.cost}}
             </div>
           </div>
-          <div class="col-md-1 count">
-            {{necroCreature.count}}
+          <div class="col-md-1 amount">
+            {{necroCreature.amount}}
           </div>
         </button>
 
@@ -69,10 +69,10 @@
     <div ng-controller="BuildingController as buildCtrl" ng-show="navCtrl.isSelectedTab(3)">
       <div class="col-md-6 row" ng-repeat="building in buildCtrl.buildingStatus">
 
-        <button ng-click="buildCtrl.getBuilding(building.id)"
+        <button class="purchase" ng-click="buildCtrl.getBuilding(building.id)"
          ng-disabled="!buildCtrl.manaAvailable(building.id) || !buildCtrl.requirementsFullfil(building.id)"
-         ng-class="{purchase: buildCtrl.manaAvailable(building.id), nomana: !buildCtrl.manaAvailable(building.id) || !buildCtrl.requirementsFullfil(building.id)}"
-        >
+         ng-class="{nomana: !buildCtrl.manaAvailable(building.id), norequirement: !buildCtrl.requirementsFullfil(building.id)}"
+         tooltip-directive data-toggle="buildingTooltip" buildingid="building.id" requirements="buildCtrl.requirementsFullfil(building.id)">
           <div class="col-md-11 row">
             <div class="col-md-12 name">
               {{building.name}}
@@ -81,7 +81,7 @@
               Mana: {{building.cost}}
             </div>
           </div>
-          <div class="col-md-1 count">
+          <div class="col-md-1 amount">
             {{building.level}}
           </div>
         </button>
@@ -89,8 +89,28 @@
       </div>
     </div>
 
-    <div ng-show="navCtrl.isSelectedTab(4)">
-      Angriff Menu
+    <!-- generate buttons to plan attack -->
+    <div ng-controller="AttackController as attackCtrl" ng-show="navCtrl.isSelectedTab(4)">
+      <div class="col-md-6 row" ng-repeat="attackCreature in attackCtrl.attackStatus">
+
+        <button class="purchase" ng-click=""
+         ng-disabled="!attackCtrl.creatureDisabled(attackCreature.id)"
+         ng-class="{nomana: !attackCtrl.creatureAvailable(attackCreature.id)}"
+         tooltip-directive data-toggle="attackTooltip" creatureid="attackCreature.id" requirements="necroCtrl.requirementsFullfil(attackCreature.id)">
+          <div class="col-md-11 row">
+            <div class="col-md-12 name">
+              {{attackCtrl.necromancyStatus[attackCreature.id].name}}
+            </div>
+            <div class="col-md-12 cost">
+              Verfügbar: {{attackCtrl.necromancyStatus[attackCreature.id].amount}}
+            </div>
+          </div>
+          <div class="col-md-1 amount">
+            {{attackCreature.amount}}
+          </div>
+        </button>
+
+      </div>
     </div>
 
 </div>
